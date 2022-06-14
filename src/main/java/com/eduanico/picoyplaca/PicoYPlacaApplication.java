@@ -8,6 +8,8 @@ public class PicoYPlacaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PicoYPlacaApplication.class, args);
+
+		
 	}
 
 }
