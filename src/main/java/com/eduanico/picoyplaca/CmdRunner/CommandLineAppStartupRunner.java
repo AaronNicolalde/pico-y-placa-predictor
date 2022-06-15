@@ -32,37 +32,39 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             System.out.println("******* SYSTEM TO VALIDATE IF PLATE NUMBER CAN BE ON THE ROAD ********");
 
 
-            System.out.println("Enter a valid plate number (e. GSK-1234) : ");
+            System.out.print("Enter a valid plate number (e. GSK-1234) : ");
             String plateNumber = sc.nextLine();
             if(!validatorService.validatePlateNumberFormat(plateNumber)){
-                System.out.println("Enter a valid plate number.");
+                System.out.println("Enter a valid plate number again.");
                 continue;
             }
             int lastDigit = predictorService.getLastDigit(plateNumber);
 
 
-            System.out.println("Enter a valid date (dd/mm/yyyy) : ");
+            System.out.print("Enter a valid date (dd/mm/yyyy) : ");
             String date = sc.nextLine();
             if(!validatorService.validateDateFormat(date)) {
-                System.out.println("Enter a valid date.");
+                System.out.println("Enter a valid date again.");
                 continue;
             }
             String dayOfWeek = predictorService.getDayOfWeek(date);
 
 
-            System.out.println("Enter a valid time (hh:mm) : ");
+            System.out.print("Enter a valid time (hh:mm) : ");
             String time = sc.nextLine();
             if(!validatorService.validateTimeFormat(time)){
-                System.out.println("Enter a valid time.");
+                System.out.println("Enter a valid time again.");
                 continue;
             }
-
 
 	    	Predictor predictor = new Predictor(plateNumber,date,time);
 
             if(predictorService.validate(predictor)){
-                System.out.println("It can be on road with last digit: " + lastDigit +
-                        ", on day of the week: "+ dayOfWeek + ", of date: "+ date);
+                System.out.println("You can be on road with last digit: " + lastDigit +
+                        ", on day of the week: "+ dayOfWeek + ", of date: "+ date + ", at time : " + time);
+            }else{
+                System.out.println("You can not be on road with last digit: " + lastDigit +
+                        ", on day of the week: "+ dayOfWeek + ", of date: "+ date + ", at time : " + time);
             }
 
 
