@@ -4,6 +4,7 @@ import com.eduanico.picoyplaca.model.Predictor;
 import com.eduanico.picoyplaca.service.PredictorService;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +16,7 @@ public class PredictorServiceImpl implements PredictorService {
     Logger logger = Logger.getLogger(PredictorServiceImpl.class.getName());
 
     @Override
-    public int getLastDigit(String plateNumber) {
+    public int getLastDigit(@Valid String plateNumber) {
         int len = plateNumber.length();
         return Integer.parseInt(String.valueOf(plateNumber.charAt(len-1)));
     }
@@ -32,7 +33,6 @@ public class PredictorServiceImpl implements PredictorService {
         }catch(Exception e){
             logger.warning("Exception thrown :" + e);
         }
-
         return null;
     }
 
@@ -80,7 +80,7 @@ public class PredictorServiceImpl implements PredictorService {
         }
     }
 
-    private boolean validateDateAndDigit(String day, int lastDigit) {
+    public boolean validateDateAndDigit(String day, int lastDigit) {
         if(day.equalsIgnoreCase("Domingo") || day.equalsIgnoreCase("Sábado")){
             return false;
         }
