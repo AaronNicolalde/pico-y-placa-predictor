@@ -8,7 +8,7 @@ Following the next patterns for input:
   - date: "dd/MM/yyyy" 
   - time: "hh:mm"
 
-With June 6th, 2022 "pico y placa" rules:
+With June 6th, 2022 "pico y placa" rules between time intervals of (7:00am - 9:30am / 16:00pm - 19:30) :
   - Monday -> Plate numbers ending in 1 and 2.
   - Tuesday -> Plate numbers ending in 3 and 4.
   - Wednesday -> Plate numbers ending in 5 and 6.
