@@ -35,4 +35,9 @@ public class Predictor {
 
     boolean isValid;
 
+    public Predictor(String plateNumber, String date, String time) {
+        this.plateNumber = plateNumber;
+        this.date = date;
+        this.time = time;
+    }
 }

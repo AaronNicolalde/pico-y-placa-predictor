@@ -7,9 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PicoYPlacaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PicoYPlacaApplication.class, args);
-
-		
+		SpringApplication.run(PicoYPlacaApplication.class, args).close();
+		System.out.println("All done");
 	}
 
 }
