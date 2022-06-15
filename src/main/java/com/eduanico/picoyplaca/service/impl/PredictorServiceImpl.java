@@ -5,6 +5,7 @@ import com.eduanico.picoyplaca.service.PredictorService;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +45,11 @@ public class PredictorServiceImpl implements PredictorService {
         if(validateMorningTime(time) || validateAfternoonTime(time)){
             String day = getDayOfWeek(date);
             int lastDigit = getLastDigit(plateNumber);
-            return !validateDateAndDigit(day, lastDigit);
+            if(validateDateAndDigit(day, lastDigit)){
+                return false;
+            }else{
+                return true;
+            }
         }else{
             return true;
         }
@@ -80,28 +85,37 @@ public class PredictorServiceImpl implements PredictorService {
         }
     }
 
-    public boolean validateDateAndDigit(String day, int lastDigit) {
+    public boolean validateDateAndDigit( String day, int lastDigit) {
+        day = stripAccents(day);
         if(day.equalsIgnoreCase("Domingo") || day.equalsIgnoreCase("Sábado")){
             return false;
         }
-        if((lastDigit == 1 || lastDigit == 2) && day.equalsIgnoreCase("Lunes")) {
+        else if((lastDigit == 1 || lastDigit == 2) && day.equalsIgnoreCase("Lunes")) {
             return true;
         }
-        if((lastDigit == 3 || lastDigit == 4) && day.equalsIgnoreCase("Martes")){
+        else if((lastDigit == 3 || lastDigit == 4) && day.equalsIgnoreCase("Martes")){
             return true;
         }
-        if( (lastDigit == 5 || lastDigit == 6) && day.equalsIgnoreCase("Miércoles")){
+        else if(((lastDigit == 5) || (lastDigit == 6)) && day.equalsIgnoreCase("Miercoles")){
             return true;
         }
-        if( (lastDigit == 7 || lastDigit == 8) && day.equalsIgnoreCase("Jueves")){
+        else if( (lastDigit == 7 || lastDigit == 8) && day.equalsIgnoreCase("Jueves")){
             return true;
         }
-        if( (lastDigit == 9 || lastDigit == 0) && day.equalsIgnoreCase("Viernes")){
+        else if( (lastDigit == 9 || lastDigit == 0) && day.equalsIgnoreCase("Viernes")){
             return true;
+        }else{
+            return false;
         }
-        return true;
-
     }
+
+    public String stripAccents(String s)
+    {
+        s = Normalizer.normalize(s, Normalizer.Form.NFD);
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return s;
+    }
+
 }
 
 
