@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ValidatorServiceImpl implements ValidatorService {
@@ -13,26 +15,27 @@ public class ValidatorServiceImpl implements ValidatorService {
 
     @Override
     public boolean validatePlateNumberFormat(String plateNumber) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean validateDateFormat(String date) {
-        DateTimeFormatter PARSE_FORMATTER = DateTimeFormatter.ofPattern("MM/dd/uuuu");
-
+        DateTimeFormatter PARSE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             LocalDate.parse(date, PARSE_FORMATTER);
-            System.out.println(date + " is a valid Date");
             return true;
         } catch (DateTimeParseException e) {
-            System.out.println(e + " is a not valid Date");
+            System.out.println("This is not a valid date.");
             return false;
         }
-
     }
 
     @Override
     public boolean validateTimeFormat(String time) {
-        return false;
+        Pattern pattern = Pattern.compile("([0-1][0-9]|2[0-3]):[0-5][0-9]");
+
+        Matcher matcher = pattern.matcher(time);
+
+        return matcher.matches();
     }
 }

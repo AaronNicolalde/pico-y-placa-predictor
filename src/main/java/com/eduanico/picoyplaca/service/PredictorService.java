@@ -8,8 +8,6 @@ public interface PredictorService {
 
     String getDayOfWeek(String date);
 
-
-
     boolean validate(Predictor predictor);
 
 }
